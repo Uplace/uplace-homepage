@@ -44,24 +44,12 @@
       <!--Page Content-->
       <div id="page-content">
         <!-- Map Canvas-->
-        <div class="map-canvas list-solid" [class.results-collapsed]="showFilter" style="height: 817px; overflow: hidden">
+        <div class="map-canvas list-solid" [class.results-collapsed]="filterOpen" style="height: 817px; overflow: hidden">
           <!-- Map -->
-          <div class="map">
-            <div class="toggle-navigation">
-              <div class="icon" (click)="onShowFilter()">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-              </div>
-            </div>
-            <!--/.toggle-navigation-->
-            <div id="map" class="has-parallax">
-              <agm-map [latitude]="latitude" [longitude]="longitude" [styles]="mapStyles"></agm-map>
-            </div>
-          </div>
+          <app-home-map></app-home-map>
           <!-- end Map -->
           <!--Items List-->
-          <div class="items-list" [style.display] = "showFilter ? 'none' : 'block'">
+          <div class="items-list" [style.display] = "filterOpen ? 'none' : 'block'">
             <div class="inner">
               <div class="filter">
                 <form class="main-search" role="form" method="post" action="?">
@@ -95,16 +83,30 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Property Type</label>
-                        <ngx-select [allowClear]="true"
-                                    [items]="items"
-                                    [(ngModel)]="ngxValue"
-                                    optionValueField="id" optionTextField="text"
-                                    optGroupLabelField="text" optGroupOptionsField="children"
-                                    placeholder="No city selected"
-                                    name="propertyType"
-                                    class="bootstrap-select"
-                                    [multiple]="true">
-                        </ngx-select>
+                        <!--<div class="btn-group bootstrap-select show-tick">-->
+                          <!--<button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" data-id="type" title="All">
+                            <span class="filter-option pull-left">All</span>&nbsp;
+                            <span class="caret"></span>
+                          </button>
+                          <div class="dropdown-menu open animation-fade-in" style="max-height: 669px; overflow: hidden; min-height: 158px;">
+                            <div class="bootstrap-select-searchbox">
+                              <input type="text" class="input-block-level form-control">
+                            </div>
+                          </div>-->
+                          <ngx-select [allowClear]="false"
+                                      [items]="items"
+                                      [(ngModel)]="ngxValue"
+                                      optionValueField="id" optionTextField="text"
+                                      optGroupLabelField="text" optGroupOptionsField="children"
+                                      placeholder="No city selected"
+                                      name="propertyType"
+                                      class=""
+                                      [multiple]="true">
+                          </ngx-select>
+                        <!--</div>-->
+
+
+
                         <!--
                         <div class="btn-group bootstrap-select show-tick" [class.open]="openSelect">
                           <button (click)="onOpenSelect()" type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" data-id="type" title="All">

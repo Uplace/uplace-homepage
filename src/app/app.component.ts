@@ -1,4 +1,6 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {HomeService} from './home.service';
+import {AgmMap} from '@agm/core';
 
 @Component({
   selector: 'app-root',
@@ -6,9 +8,8 @@ import {Component, ViewEncapsulation} from '@angular/core';
   styleUrls: ['./app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  mapStyles = [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#c6c6c6"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#dde6e8"},{"visibility":"on"}]}];
 
   public items: any[] = [
     {
@@ -212,24 +213,30 @@ export class AppComponent {
 
   public ngxValue: any[] = [];
 
+  filterOpen;
+
   filterBedrooms = 0;
   filterbathrooms = 0;
 
   showAdvancedSearch = true;
   openSelect = false;
-  showFilter = false;
-
-  latitude = 51.678418;
-  longitude = 7.809007;
 
   someRange: [number, number] = [0, 50];
 
-  onShowAdvancedSearch() {
-    this.showAdvancedSearch = !this.showAdvancedSearch;
+  @ViewChild(AgmMap)
+  public agmMap: AgmMap
+
+  constructor(private homeService: HomeService) {}
+
+  ngOnInit(): void {
+    this.homeService.change.subscribe((isOpen: boolean) => {
+      this.filterOpen = isOpen;
+      // this.agmMap.triggerResize();
+    });
   }
 
-  onShowFilter() {
-    this.showFilter = !this.showFilter;
+  onShowAdvancedSearch() {
+    this.showAdvancedSearch = !this.showAdvancedSearch;
   }
 
   onOpenSelect() {

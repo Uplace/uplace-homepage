@@ -8,12 +8,14 @@ import {NouisliderModule} from 'ng2-nouislider';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import { NgxSelectModule } from 'ngx-select-ex';
-import { HomeFeaturedComponent } from './home-featured/home-featured.component';
-import { HomeWhyUsComponent } from './home-why-us/home-why-us.component';
-import { HomePromotionComponent } from './home-promotion/home-promotion.component';
-import { HomeRecentComponent } from './home-recent/home-recent.component';
-import { HomeTeamComponent } from './home-team/home-team.component';
-import { HomePartnersComponent } from './home-partners/home-partners.component';
+import { HomeFeaturedComponent } from './sections/home-featured/home-featured.component';
+import { HomeWhyUsComponent } from './sections/home-why-us/home-why-us.component';
+import { HomePromotionComponent } from './sections/home-promotion/home-promotion.component';
+import { HomeRecentComponent } from './sections/home-recent/home-recent.component';
+import { HomeTeamComponent } from './sections/home-team/home-team.component';
+import { HomePartnersComponent } from './sections/home-partners/home-partners.component';
+import { HomeMapComponent } from './home-map/home-map.component';
+import {HomeService} from './home.service';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { HomePartnersComponent } from './home-partners/home-partners.component';
     HomePromotionComponent,
     HomeRecentComponent,
     HomeTeamComponent,
-    HomePartnersComponent
+    HomePartnersComponent,
+    HomeMapComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,7 @@ import { HomePartnersComponent } from './home-partners/home-partners.component';
     NgxSelectModule
 
   ],
-  providers: [],
+  providers: [HomeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
