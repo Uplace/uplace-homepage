@@ -1,20 +1,880 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!-- Outer Wrapper-->
+<div id="outer-wrapper">
+  <!-- Inner Wrapper -->
+  <div id="inner-wrapper">
+    <!-- Navigation-->
+    <div class="header">
+      <div class="wrapper">
+        <div class="brand">
+          <a href="index-real-estate.html"><img src="assets/img/logo-real-estate.png" alt="logo"></a>
+        </div>
+        <nav class="navigation-items">
+          <div class="wrapper">
+            <ul class="main-navigation navigation-top-header"></ul>
+            <ul class="user-area">
+              <li><a href="sign-in.html">Sign In</a></li>
+              <li><a href="register.html"><strong>Register</strong></a></li>
+            </ul>
+            <a href="submit.html" class="submit-item">
+              <div class="content"><span>Submit Your Item</span></div>
+              <div class="icon">
+                <i class="fa fa-plus"></i>
+              </div>
+            </a>
+            <div class="toggle-navigation">
+              <div class="icon">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!-- end Navigation-->
+    <!-- Page Canvas-->
+    <div id="page-canvas">
+      <!--Off Canvas Navigation-->
+      <nav class="off-canvas-navigation">
+        <header>Navigation</header>
+        <div class="main-navigation navigation-off-canvas"></div>
+      </nav>
+      <!--end Off Canvas Navigation-->
+      <!--Page Content-->
+      <div id="page-content">
+        <!-- Map Canvas-->
+        <div class="map-canvas list-solid" [class.results-collapsed]="showFilter" style="height: 817px; overflow: hidden">
+          <!-- Map -->
+          <div class="map">
+            <div class="toggle-navigation">
+              <div class="icon" (click)="onShowFilter()">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+            </div>
+            <!--/.toggle-navigation-->
+            <div id="map" class="has-parallax">
+              <agm-map [latitude]="latitude" [longitude]="longitude" [styles]="mapStyles"></agm-map>
+            </div>
+          </div>
+          <!-- end Map -->
+          <!--Items List-->
+          <div class="items-list" [style.display] = "showFilter ? 'none' : 'block'">
+            <div class="inner">
+              <div class="filter">
+                <form class="main-search" role="form" method="post" action="?">
+                  <header class="clearfix">
+                    <h3 class="pull-left">Search</h3>
+                    <a href="#" class="show-more pull-right" (click)="onShowAdvancedSearch()" data-toggle="collapse" aria-expanded="false" aria-controls="advanced-search">Advanced Search</a>
+                  </header>
+                  <div class="advanced-search collapse" id="advanced-search" [class.collapse]="showAdvancedSearch">
+                    <h4>Features</h4>
+                    <ul class="list-unstyled checkboxes">
+                      <ul class="list-unstyled checkboxes">
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="1">Free Parking</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="2">Cards Accepted</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="3">Wi-Fi</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="4">Air Condition</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="5">Reservations</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="6">Team-buildings</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="7">Places to seat</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="8">Winery</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="9">Draft Beer</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="10">LCD</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="11">Saloon</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="12">Free Access</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="13">Terrace</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="14">Minigolf</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" name="features[]" value="15">Night Bar</label></div></li>
+                      </ul>
+                    </ul>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Property Type</label>
+                        <ngx-select [allowClear]="true"
+                                    [items]="items"
+                                    [(ngModel)]="ngxValue"
+                                    optionValueField="id" optionTextField="text"
+                                    optGroupLabelField="text" optGroupOptionsField="children"
+                                    placeholder="No city selected"
+                                    name="propertyType"
+                                    class="bootstrap-select"
+                                    [multiple]="true">
+                        </ngx-select>
+                        <!--
+                        <div class="btn-group bootstrap-select show-tick" [class.open]="openSelect">
+                          <button (click)="onOpenSelect()" type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" data-id="type" title="All">
+                            <span class="filter-option pull-left">All</span>&nbsp;
+                            <span class="caret"></span>
+                          </button>
+                          <div class="dropdown-menu open animation-fade-in" style="max-height: 669px; overflow: hidden; min-height: 158px;">
+                            <div class="bootstrap-select-searchbox">
+                              <input type="text" class="input-block-level form-control">
+                            </div>
+                            <ul class="dropdown-menu inner selectpicker animation-fade-in" role="menu" style="max-height: 622px; overflow-y: auto; min-height: 111px;">
+                              <li rel="0" class="">
+                                <a tabindex="0" class="" style="">
+                                  <span class="text">Stores</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="1" class="">
+                                <a tabindex="0" class="sub-category" style="">
+                                  <span class="text">Apparel</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="2" class="">
+                                <a tabindex="0" class="sub-category" style="">
+                                  <span class="text">Computers</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="3" class="">
+                                <a tabindex="0" class="sub-category" style="">
+                                  <span class="text">Nature</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="4" class="">
+                                <a tabindex="0" class="" style="">
+                                  <span class="text">Tourism</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="5" class="">
+                                <a tabindex="0" class="" style="">
+                                  <span class="text">Restaurant &amp; Bars</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="6" class="">
+                                <a tabindex="0" class="sub-category" style="">
+                                  <span class="text">Bars</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="7" class="">
+                                <a tabindex="0" class="sub-category" style="">
+                                  <span class="text">Vegetarian</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="8" class="">
+                                <a tabindex="0" class="sub-category" style="">
+                                  <span class="text">Steak &amp; Grill</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="9">
+                                <a tabindex="0" class="" style="">
+                                  <span class="text">Sports</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="10">
+                                <a tabindex="0" class="sub-category" style="">
+                                  <span class="text">Cycling</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="11" class="">
+                                <a tabindex="0" class="sub-category" style="">
+                                  <span class="text">Water Sports</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                              <li rel="12" class="">
+                                <a tabindex="0" class="sub-category" style="">
+                                  <span class="text">Winter Sports</span>
+                                  <i class="glyphicon glyphicon-ok icon-ok check-mark"></i>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>-->
+                      </div><!-- /.form-group -->
+                    </div>
+                    <!--/.col-md-6-->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="bedrooms">Bedrooms</label>
+                        <div class="input-group counter">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" (click)="decrement(filterBedrooms)"><i class="fa fa-minus"></i></button>
+                          </span>
+                          <input type="text" class="form-control" id="bedrooms" name="bedrooms" [(ngModel)]="filterBedrooms" placeholder="Any">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" (click)="increment(filterBedrooms)"><i class="fa fa-plus"></i></button>
+                          </span>
+                        </div><!-- /input-group -->
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!--/.col-md-3-->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="bathrooms">Bathrooms</label>
+                        <div class="input-group counter">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-minus"></i></button>
+                                                </span>
+                          <input type="text" class="form-control" id="bathrooms" name="bathrooms" [(ngModel)]="filterBedrooms" placeholder="Any">
+                          <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+                                                </span>
+                        </div><!-- /input-group -->
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!--/.col-md-3-->
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="location">Location</label>
+                        <div class="input-group location">
+                          <input type="text" class="form-control" id="location" placeholder="Enter Location">
+                          <span class="input-group-addon"><i class="fa fa-map-marker geolocation" data-toggle="tooltip" data-placement="bottom" title="Find my position"></i></span>
+                        </div>
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Price</label>
+                        <nouislider class="ui-slider-horizontal" name="propertyPriceFilter" id="price-slider" [connect]="true" [min]="100" [max]="40000" [(ngModel)]="someRange"></nouislider>
+                        <!--<div data-value-min="100" data-value-max="40000" data-value-type="price" data-currency="$" data-currency-placement="before">
+                          <div class="values clearfix">
+                            <input class="value-min" name="value-min[]" readonly>
+                            <input class="value-max" name="value-max[]" readonly>
+                          </div>
+                          <div class="element"></div>
+                        </div>-->
+                      </div>
+                      <!-- /.form-group -->
+                    </div>
+                    <!--/.col-md-6-->
+                  </div>
+                  <!--/.row-->
+                </form>
+                <!-- /.main-search -->
+              </div>
+              <!--end Filter-->
+              <header class="clearfix">
+                <h3 class="pull-left">Results</h3>
+                <div class="buttons pull-right">
+                  <span>Display:</span>
+                  <span class="icon active" id="display-grid"><i class="fa fa-th"></i></span>
+                  <span class="icon" id="display-list"><i class="fa fa-th-list"></i></span>
+                </div>
+              </header>
+              <ul class="results grid">
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item">
+                    <a href="#" class="image loaded">
+                      <div class="inner">
+                        <div class="item-specific">
+                          <span title="Bedrooms">
+                            <img src="assets/img/bedrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Bathrooms">
+                            <img src="assets/img/bathrooms.png" class="mCS_img_loaded">1</span>
+                          <span title="Area">
+                            <img src="assets/img/area.png" class="mCS_img_loaded">140<sup>2</sup></span>
+                          <span title="Garages"><img src="assets/img/garages.png" class="mCS_img_loaded">1</span>
+                        </div>
+                        <img src="assets/img/items/real-estate/12.jpg" alt="" class="mCS_img_loaded">
+                      </div>
+                    </a>
+                    <div class="wrapper"><a href="#" id="2">
+                      <h3>534 Roosevelt Street</h3>
+                    </a>
+                      <figure>San Francisco</figure>
+                      <div class="price">$39.000</div>
+                      <div class="info">
+                        <div class="type"><i>
+                          <img src="assets/icons/real-estate/condominium.png" alt=""class="mCS_img_loaded"></i><span>Condominium</span></div>
+                        <div class="rating" data-rating="4">
+                          <span class="stars">
+                            <i class="fa fa-star s1 active" data-score="1"></i>
+                            <i class="fa fa-star s2 active" data-score="2"></i>
+                            <i class="fa fa-star s3 active" data-score="3"></i>
+                            <i class="fa fa-star s4 active" data-score="4"></i>
+                            <i class="fa fa-star s5" data-score="5"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!--results-->
+          </div>
+          <!--end Items List-->
+        </div>
+        <!-- end Map Canvas-->
+        <!--Why Us-->
+        <app-home-why-us></app-home-why-us>
+        <!--end Why Us-->
+        <!--Featured-->
+        <app-home-featured></app-home-featured>
+        <!--end Featured-->
+        <!--Recent-->
+        <app-home-recent></app-home-recent>
+        <!--end Recent-->
+        <!--Promotion-->
+        <app-home-promotion></app-home-promotion>
+        <!--end Promotion-->
+        <!--Our Team-->
+        <app-home-team></app-home-team>
+        <!--end Our Team-->
+        <!--Partners-->
+        <app-home-partners></app-home-partners>
+        <!--end Partners-->
+      </div>
+      <!-- end Page Content-->
+    </div>
+    <!-- end Page Canvas-->
+    <!--Page Footer-->
+    <footer id="page-footer">
+      <div class="inner">
+        <div class="footer-top">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <!--New Items-->
+                <section>
+                  <h2>New Items</h2>
+                  <a href="real-estate-item-detail.html" class="item-horizontal small">
+                    <h3>Cash Cow Restaurante</h3>
+                    <figure>63 Birch Street</figure>
+                    <div class="wrapper">
+                      <div class="image"><img src="assets/img/items/1.jpg" alt=""></div>
+                      <div class="info">
+                        <div class="type">
+                          <i><img src="assets/icons/real-estate/apartment-3.png" alt=""></i>
+                          <span>Restaurant</span>
+                        </div>
+                        <div class="rating" data-rating="4"></div>
+                      </div>
+                    </div>
+                  </a>
+                  <!--/.item-horizontal small-->
+                  <a href="real-estate-item-detail.html" class="item-horizontal small">
+                    <h3>Blue Chilli</h3>
+                    <figure>2476 Whispering Pines Circle</figure>
+                    <div class="wrapper">
+                      <div class="image"><img src="assets/img/items/2.jpg" alt=""></div>
+                      <div class="info">
+                        <div class="type">
+                          <i><img src="assets/icons/real-estate/apartment-3.png" alt=""></i>
+                          <span>Restaurant</span>
+                        </div>
+                        <div class="rating" data-rating="3"></div>
+                      </div>
+                    </div>
+                  </a>
+                  <!--/.item-horizontal small-->
+                </section>
+                <!--end New Items-->
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <!--Recent Reviews-->
+                <section>
+                  <h2>Recent Reviews</h2>
+                  <a href="real-estate-item-detail.html#reviews" class="review small">
+                    <h3>Max Five Lounge</h3>
+                    <figure>4365 Bruce Street</figure>
+                    <div class="info">
+                      <div class="rating" data-rating="4"></div>
+                      <div class="type">
+                        <i><img src="assets/icons/restaurants-bars/restaurants/restaurant.png" alt=""></i>
+                        <span>Restaurant</span>
+                      </div>
+                    </div>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non suscipit felis, sed sagittis tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras ac placerat mauris.
+                    </p>
+                  </a><!--/.review-->
+                  <a href="real-estate-item-detail.html#reviews" class="review small">
+                    <h3>Saguaro Tavern</h3>
+                    <figure>2476 Whispering Pines Circle</figure>
+                    <div class="info">
+                      <div class="rating" data-rating="5"></div>
+                      <div class="type">
+                        <i><img src="assets/icons/restaurants-bars/restaurants/restaurant.png" alt=""></i>
+                        <span>Restaurant</span>
+                      </div>
+                    </div>
+                    <p>
+                      Pellentesque mauris. Proin sit amet scelerisque risus. Donec semper semper erat ut mollis curabitur
+                    </p>
+                  </a>
+                  <!--/.review-->
+                </section>
+                <!--end Recent Reviews-->
+              </div>
+              <div class="col-md-4 col-sm-4">
+                <section>
+                  <h2>About Us</h2>
+                  <address>
+                    <div>Max Five Lounge</div>
+                    <div>63 Birch Street</div>
+                    <div>Granada Hills, CA 91344</div>
+                    <figure>
+                      <div class="info">
+                        <i class="fa fa-mobile"></i>
+                        <span>818-832-5258</span>
+                      </div>
+                      <div class="info">
+                        <i class="fa fa-phone"></i>
+                        <span>+1 123 456 789</span>
+                      </div>
+                      <div class="info">
+                        <i class="fa fa-globe"></i>
+                        <a href="#">www.maxfivelounge.com</a>
+                      </div>
+                    </figure>
+                  </address>
+                  <div class="social">
+                    <a href="#" class="social-button"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="social-button"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="social-button"><i class="fa fa-pinterest"></i></a>
+                  </div>
 
+                  <a href="contact.html" class="btn framed icon">Contact Us<i class="fa fa-angle-right"></i></a>
+                </section>
+              </div>
+              <!--/.col-md-4-->
+            </div>
+            <!--/.row-->
+          </div>
+          <!--/.container-->
+        </div>
+        <!--/.footer-top-->
+        <div class="footer-bottom">
+          <div class="container">
+            <span class="left">(C) ThemeStarz, All rights reserved</span>
+            <span class="right">
+                                <a href="#page-top" class="to-top roll"><i class="fa fa-angle-up"></i></a>
+                            </span>
+          </div>
+        </div>
+        <!--/.footer-bottom-->
+      </div>
+    </footer>
+    <!--end Page Footer-->
+  </div>
+  <!-- end Inner Wrapper -->
+</div>
+<!-- end Outer Wrapper-->
