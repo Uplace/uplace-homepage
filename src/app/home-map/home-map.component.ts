@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from '../home.service';
+import {AgmMap} from '@agm/core';
 
 @Component({
   selector: 'app-home-map',
   templateUrl: './home-map.component.html',
   styleUrls: ['./home-map.component.css']
 })
-export class HomeMapComponent implements OnInit {
+export class HomeMapComponent implements OnInit, OnDestroy {
 
   latitude = 51.678418;
   longitude = 7.809007;
-  showFilter = false;
+  @ViewChild(AgmMap) agmMap: AgmMap;
 
   mapStyles = [
     {
@@ -42,6 +43,22 @@ export class HomeMapComponent implements OnInit {
   constructor(private homeService: HomeService) {}
 
   ngOnInit() {
+
+    // Subscription for the resize filter
+    this.homeService.change.subscribe(() => {
+      setTimeout(() => {
+        this.agmMap.triggerResize().then(() => {
+          (this.agmMap as any)._mapsWrapper.setCenter({lat: this.agmMap.latitude, lng: this.agmMap.longitude});
+        });
+      }, 500);
+    });
+    // Subscription for setting new address
+
+    // TODO: FIX Google places
+  }
+
+  ngOnDestroy(): void {
+    console.log('Destroyed');
   }
 
   onShowFilter() {

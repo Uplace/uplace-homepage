@@ -16,6 +16,8 @@ import { HomeTeamComponent } from './sections/home-team/home-team.component';
 import { HomePartnersComponent } from './sections/home-partners/home-partners.component';
 import { HomeMapComponent } from './home-map/home-map.component';
 import {HomeService} from './home.service';
+import { HomeFilterComponent } from './home-filter/home-filter.component';
+import { HomeFilterItemComponent } from './home-filter-item/home-filter-item.component';
 
 
 @NgModule({
@@ -27,13 +29,16 @@ import {HomeService} from './home.service';
     HomeRecentComponent,
     HomeTeamComponent,
     HomePartnersComponent,
-    HomeMapComponent
+    HomeMapComponent,
+    HomeFilterComponent,
+    HomeFilterItemComponent
   ],
   imports: [
     BrowserModule,
     NouisliderModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDOe3n9Rms8qQ1eXuuWX5jsKjha1iY6iyk'
+      apiKey: 'AIzaSyDOe3n9Rms8qQ1eXuuWX5jsKjha1iY6iyk',
+      libraries: ['places']
     }),
     FormsModule,
     CommonModule,
